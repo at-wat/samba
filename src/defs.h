@@ -22,7 +22,7 @@
 #define _DEFS_H
 
 #define PROJECT		"SAM-BA"
-#define PROJECT_VERSION	"0.3.3"
+#define PROJECT_VERSION	"0.3.4"
 
 #ifdef DEBUG_MODE
 #define PDEBUG(fmt, arg...)	printf(fmt, ## arg)

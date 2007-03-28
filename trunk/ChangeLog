@@ -1,3 +1,12 @@
+2007-03-28  Yuri Ovcharenko
+
+	* BUGFIX release.
+	* version 0.3.4
+	* In some cases the first flash page is not programmed correctly.
+	  I don't know why.
+	  Fixed by adding flash page contents comparison with data to be programmed
+	  and try to reprogram page up to four times.
+
 2007-02-19  Yuri Ovcharenko
 
 	* Public release.

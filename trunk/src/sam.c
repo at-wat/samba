@@ -566,8 +566,10 @@ int ucflash(unsigned long addr, char *buf, size_t len)
 		retval = ucread(RETVAL, &sr);
 		if (retval < 0)
 			return retval;
-		if (sr) {
-			fprintf(stderr, "\nError while programming page!\nReturn value: %d\n", sr);
+		VERBOSE(1, "sambaflash retval = 0x%08X\n", sr);
+		retval = (signed int)sr;
+		if (retval) {
+			fprintf(stderr, "\nError while programming page!\nReturn value: %d\n", retval);
 			return 0;
 		}
 		count -= pagesize;

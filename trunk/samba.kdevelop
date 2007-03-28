@@ -26,7 +26,7 @@
       <terminal>true</terminal>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
-      <programargs>-i /dev/acm/0</programargs>
+      <programargs>-v -i /dev/acm/0 -s /home/amw/devel/rdtt/arm7tdmi/sam-ba/samba/samba.flash</programargs>
       <autocompile>true</autocompile>
       <envvars/>
       <runarguments>

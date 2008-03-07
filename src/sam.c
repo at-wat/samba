@@ -1034,7 +1034,7 @@ int ucsetnvm(unsigned long value)
 	unsigned long data;
 
 	VERBOSE(3, "Setting GPNVM bits\n");
-	if (value > 3) {
+	if (value > 7) {
 		fprintf(stderr, "GPNVM value out of range.\n");
 		return ERR_INCOMPLETE;
 	}
@@ -1093,7 +1093,7 @@ int ucsetnvm(unsigned long value)
 	}
 
 	if ((value & MC_FSR_GPNVM2) != (data & MC_FSR_GPNVM2)) {
-		VERBOSE(0, "Set \tGPVNM1 = %d\n", value & MC_FSR_GPNVM2 ? 1 : 0);
+		VERBOSE(0, "Set \tGPVNM2 = %d\n", value & MC_FSR_GPNVM2 ? 1 : 0);
 		retval = ucwrite(FCR, (0x5A << MC_FCR_KEY_SHIFT) | (2 << MC_FCR_PAGEN_SHIFT) | ((value & MC_FSR_GPNVM2) ? MC_FCR_FCMD_SGPB : MC_FCR_FCMD_CGPB) );
 		if (retval)
 			return retval;

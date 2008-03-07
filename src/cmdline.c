@@ -602,7 +602,7 @@ int process_cmdline(const char *command)
 					fprintf(stderr, "Invalid parameter '%s'\n", param[1]);
 					retval = ERR_INVPARAM;
 				} else {
-					if (data > 3) {
+					if (data > 7) {
 						fprintf(stderr, "Invalid GPNVM value '0x%08X'\n", data);
 						retval = ERR_INVPARAM;
 					} else {

@@ -11,5 +11,10 @@
 
 int main(void)
 {
+  struct RSTC_t *RSTC = RSTC_BASE;
+  RSTC->RCR = 0xA5000000 | RSTC_RCR_PROCRST | RSTC_RCR_PERRST | RSTC_RCR_EXTRST;
+
+  while(1);
+
 	return 0;
 }

@@ -18,6 +18,7 @@
 #define PMC_BASE	(struct PMC_t *)0xFFFFFC00
 #define MC_BASE		(struct MC_t *)0xFFFFFF00
 #define EFC_BASE	(struct EFC_t *)0xFFFFFF60
+#define RSTC_BASE	(struct RSTC_t *)0xFFFFFD00
 
 struct DBGU_t {
 	volatile unsigned long CR;
@@ -152,6 +153,16 @@ struct EFC_t {
 	volatile unsigned long FMR;
 	volatile unsigned long FCR;
 	volatile unsigned long FSR;
+};
+
+#define RSTC_RCR_PROCRST  0x00000001
+#define RSTC_RCR_PERRST  0x00000002
+#define RSTC_RCR_EXTRST  0x00000004
+
+struct RSTC_t {
+	volatile unsigned long RCR;
+	volatile unsigned long RSR;
+	volatile unsigned long RMR;
 };
 
 #endif

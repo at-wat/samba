@@ -1,7 +1,9 @@
-AC_INIT(configure.in)
+AC_INIT(configure.ac)
 
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE(samba, 0.1)
+
+AC_CONFIG_MACRO_DIRS([m4])
 
 AC_LANG_C
 AC_PROG_CC

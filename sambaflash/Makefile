@@ -9,10 +9,10 @@
 # Author: Yury Ovcharenko <amwsoft@gmail.com>
 #
 
-CROSS		= arm-elf-
+CROSS		= arm-none-eabi-
 CC		= $(CROSS)gcc
 AS		= $(CROSS)as
-LD		= $(CROSS)ld
+LD		= $(CROSS)gcc
 OBJDUMP		= $(CROSS)objdump
 OBJCOPY		= $(CROSS)objcopy
 
@@ -28,13 +28,13 @@ DUMP		= sambaflash.dump
 IMAGE		= sambaflash.c
 
 LDS		= at91sam7.lds
-LIBPATH		= -L/usr/local/arm/lib/gcc-lib/arm-elf/3.3.6
-LIBS		= -lgcc
+LIBPATH		= -L/usr/arm-none-eabi/lib
+LIBS		= -lc_nano
 
 CPPFLAGS	=
-CFLAGS		= -g
+CFLAGS		= -Os -g -mcpu=arm7tdmi -marm
 ASFLAGS		=
-LDFLAGS		= -T$(LDS)
+LDFLAGS		= -Os -T$(LDS) -nostartfiles
 ##  DEBUG_MODE Used by developer
 ##CPPFLAGS	+= -DDEBUG_MODE
 
@@ -43,7 +43,7 @@ CONVERTOR	= bin2c
 all: $(IMAGE) $(CONVERTOR)
 
 $(IMAGE): $(BIN) $(CONVERTOR)
-	$(CONVERTOR) $(BIN) > $(IMAGE)
+	./$(CONVERTOR) $(BIN) > $(IMAGE)
 
 $(CONVERTOR): $(CONVERTOR).c
 	$(HOST_CC) -o $@ $<

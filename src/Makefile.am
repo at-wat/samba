@@ -1,6 +1,14 @@
 bin_PROGRAMS = samba
-samba_SOURCES = samba.c cmdline.c comm.c sam.c sambaflash.c fsio.c crc-1021.c \
-	batch.c
+samba_SOURCES = \
+	batch.c \
+	cmdline.c \
+	comm.c \
+	crc-1021.c \
+	fsio.c \
+	sam.c \
+	samba.c \
+	sambaflash.c \
+	sambareset.c
 
 # set the include path found by configure
 INCLUDES = $(all_includes)

@@ -42,6 +42,7 @@
 #define CMD_SHOW	15
 #define CMD_LOCK	16
 #define CMD_NVM		17
+#define CMD_RESET	18
 
 #define SHOW_ID		1
 #define SHOW_EFC	2

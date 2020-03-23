@@ -31,6 +31,8 @@
 
 extern const int sambaflash_size;
 extern const char sambaflash[];
+extern const int sambareset_size;
+extern const char sambareset[];
 
 static int prot = PROT_RAW;
 static int timeout = DEFAULT_TIMEOUT;
@@ -1112,6 +1114,21 @@ int ucsetnvm(unsigned long value)
 	}
 
 	return 0;
+}
+
+int reset()
+{
+  int retval;
+
+	retval = ucsend(SAMBAFLASH, (char *)sambareset, sambareset_size);
+  if (retval < 0)
+    return retval;
+
+  retval = ucgo(SAMBAFLASH);
+  if (retval < 0)
+    return retval;
+
+  return 0;
 }
 
 /* End of file */

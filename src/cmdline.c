@@ -180,6 +180,13 @@ const struct cmd_t cmd_list[] = {
 				"\twrite <addr> <data>\n"
 				"Write a word to the given address in RAM. The address must be word-aligned."
 	},
+	{
+		.code = CMD_RESET,
+		.cmd  = "reset",
+		.help = "Usage:\n"
+				"\treset\n"
+				"Reset MCU",
+	},
 
 	{.code = 0,} /* Last must be zero */
 };
@@ -614,6 +621,17 @@ int process_cmdline(const char *command)
 				}
 			}
 
+			if (!opened)
+				comm_close();
+			break;
+		/*************************************************************************/
+		case CMD_RESET:
+			opened = comm_opened();
+			VERBOSE(1, "Resetting MCU...\n");
+      retval = reset();
+      if (retval < 0) {
+        perror("Error sending data");
+      }
 			if (!opened)
 				comm_close();
 			break;

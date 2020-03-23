@@ -128,6 +128,7 @@ int ucnvpsiz(unsigned long cidr);
 char *ucarch(unsigned long cidr);
 int ucsetlocks(unsigned long value);
 int ucsetnvm(unsigned long value);
+int reset();
 
 void uc_info();
 

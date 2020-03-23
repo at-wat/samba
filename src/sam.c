@@ -1118,7 +1118,17 @@ int ucsetnvm(unsigned long value)
 
 int reset()
 {
-	return ucsend(SAMBAFLASH, (char *)sambareset, sambareset_size);
+  int retval;
+
+	retval = ucsend(SAMBAFLASH, (char *)sambareset, sambareset_size);
+  if (retval < 0)
+    return retval;
+
+  retval = ucgo(SAMBAFLASH);
+  if (retval < 0)
+    return retval;
+
+  return 0;
 }
 
 /* End of file */

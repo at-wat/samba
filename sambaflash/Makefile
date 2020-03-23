@@ -20,12 +20,19 @@ HOST_CC		= gcc
 
 INCLUDES	= at91sam7.h pio.h serial.h pmc.h funcs.h flash.h
 
-OBJS		= crt0.o main.o pio.o serial.o pmc.o funcs.o flash.o
+FLASH_OBJS		= crt0.o main.o pio.o serial.o pmc.o funcs.o flash.o
 
-ELF		= sambaflash.elf
-BIN		= sambaflash.bin
-DUMP		= sambaflash.dump
-IMAGE		= sambaflash.c
+FLASH_ELF		= sambaflash.elf
+FLASH_BIN		= sambaflash.bin
+FLASH_DUMP		= sambaflash.dump
+FLASH_IMAGE		= sambaflash.c
+
+RESET_OBJS		= crt0.o reset.o
+
+RESET_ELF		= sambareset.elf
+RESET_BIN		= sambareset.bin
+RESET_DUMP		= sambareset.dump
+RESET_IMAGE		= sambareset.c
 
 LDS		= at91sam7.lds
 LIBPATH		= -L/usr/arm-none-eabi/lib
@@ -40,20 +47,30 @@ LDFLAGS		= -Os -T$(LDS) -nostartfiles
 
 CONVERTOR	= bin2c
 
-all: $(IMAGE) $(CONVERTOR)
+all: $(FLASH_IMAGE) $(RESET_IMAGE) $(CONVERTOR)
 
-$(IMAGE): $(BIN) $(CONVERTOR)
-	./$(CONVERTOR) $(BIN) > $(IMAGE)
+$(FLASH_IMAGE): $(FLASH_BIN) $(CONVERTOR)
+	./$(CONVERTOR) $(FLASH_BIN) > $(FLASH_IMAGE)
+
+$(RESET_IMAGE): $(RESET_BIN) $(CONVERTOR)
+	./$(CONVERTOR) $(RESET_BIN) > $(RESET_IMAGE)
 
 $(CONVERTOR): $(CONVERTOR).c
 	$(HOST_CC) -o $@ $<
 
-$(BIN): $(ELF)
-	$(OBJDUMP) -SD $(ELF) > $(DUMP)
-	$(OBJCOPY) -O binary $(ELF) $(BIN)
+$(FLASH_BIN): $(FLASH_ELF)
+	$(OBJDUMP) -SD $(FLASH_ELF) > $(FLASH_DUMP)
+	$(OBJCOPY) -O binary $(FLASH_ELF) $(FLASH_BIN)
 
-$(ELF): $(OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LIBPATH) $(LIBS)
+$(FLASH_ELF): $(FLASH_OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(FLASH_OBJS) $(LIBPATH) $(LIBS)
+
+$(RESET_BIN): $(RESET_ELF)
+	$(OBJDUMP) -SD $(RESET_ELF) > $(RESET_DUMP)
+	$(OBJCOPY) -O binary $(RESET_ELF) $(RESET_BIN)
+
+$(RESET_ELF): $(RESET_OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(RESET_OBJS) $(LIBPATH) $(LIBS)
 
 %.o: %.c $(INCLUDES)
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
@@ -64,7 +81,7 @@ $(ELF): $(OBJS)
 clean:
 	@echo "==========================================="
 	rm -f *.o
-	rm -f sambaflash.*
+	rm -f sambaflash.* sambareset.*
 	rm -f $(CONVERTOR)
 	@echo "==========================================="
 

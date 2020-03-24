@@ -31,7 +31,7 @@ jobs:
           && tar czfv samba.linux-x86_64.tar.gz samba
 
       - name: Create Release
-        if: github.ref == 'refs/tags/*'
+        if: startsWith(github.ref, 'refs/tags/')
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -42,7 +42,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload Release Asset
-        if: github.ref == 'refs/tags/*'
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -24,5 +26,6 @@ jobs:
         run: |
           mkdir -p build \
           && cd build \
-          && cmake .. \
-          && make
+          && cmake .. -DALL_STATIC=on \
+          && make \
+          && tar czfv samba.linux-x86_64.tar.gz samba

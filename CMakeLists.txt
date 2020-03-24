@@ -3,10 +3,19 @@ project(samba)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
-find_package(Curses REQUIRED)
+option(ALL_STATIC "Static link libraries and libgcc" OFF)
+if(ALL_STATIC)
+  set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc")
+endif(ALL_STATIC)
+
+find_package(Ncurses REQUIRED)
 find_package(Readline REQUIRED)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${NCURSES_INCLUDE_DIRS}
+  ${READLINE_INCLUDE_DIRS}
+)
 
 add_executable(samba
   src/batch.c
@@ -21,7 +30,7 @@ add_executable(samba
 )
 target_link_libraries(samba
   ${READLINE_LIBRARIES}
-  ${CURSES_LIBRARIES}
+  ${NCURSES_LIBRARIES}
 )
 
 install(TARGETS samba)

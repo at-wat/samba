@@ -29,3 +29,25 @@ jobs:
           && cmake .. -DALL_STATIC=on \
           && make \
           && tar czfv samba.linux-x86_64.tar.gz samba
+
+      - name: Create Release
+        if: github.ref == 'refs/tags/*'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        if: github.ref == 'refs/tags/*'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/samba.linux-x86_64.tar.gz
+          asset_name: samba.linux-x86_64.tar.gz
+          asset_content_type: application/gzip

@@ -13,7 +13,6 @@ find_package(Readline REQUIRED)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src
-  ${NCURSES_INCLUDE_DIRS}
   ${READLINE_INCLUDE_DIRS}
 )
 

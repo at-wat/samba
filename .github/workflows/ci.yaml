@@ -36,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./build/samba.linux-x86_64.tar.gz
           asset_name: samba.linux-x86_64.tar.gz
           asset_content_type: application/gzip

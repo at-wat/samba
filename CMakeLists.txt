@@ -8,6 +8,7 @@ if(ALL_STATIC)
   set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc")
 endif(ALL_STATIC)
 
+set(CURSES_NEED_NCURSES True)
 find_package(Curses REQUIRED)
 find_package(Readline REQUIRED)
 
@@ -29,7 +30,7 @@ add_executable(samba
 )
 target_link_libraries(samba
   ${READLINE_LIBRARIES}
-  ${CURSES_LIBRARIES}
+  ncurses
 )
 
 install(TARGETS samba)

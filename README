@@ -18,7 +18,7 @@ See README in the sambaflash subdirectory for detail.
 
 Requirements:
 	readline
-	ncurses (used by readline)
+	tinfo (used by readline)
 
 Notes:
 

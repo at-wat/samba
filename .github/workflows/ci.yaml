@@ -20,8 +20,8 @@ jobs:
         run: |
           sudo apt-get update -qq \
           && sudo apt-get install --no-install-recommends -y \
-            libncurses5-dev \
-            libreadline-dev
+            libreadline-dev \
+            libtinfo-dev
       - name: Build
         run: |
           mkdir -p build \

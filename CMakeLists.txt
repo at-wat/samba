@@ -30,7 +30,7 @@ add_executable(samba
 )
 target_link_libraries(samba
   ${READLINE_LIBRARIES}
-  ncurses
+  ${CURSES_LIBRARIES}
 )
 
 install(TARGETS samba)

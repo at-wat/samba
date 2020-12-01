@@ -29,6 +29,8 @@ jobs:
           && cmake .. -DALL_STATIC=on \
           && make \
           && tar czfv samba.linux-x86_64.tar.gz samba
+      - name: Check static
+        run: ldd build/samba 2>&1 | grep "not a dynamic executable"
 
       - name: Upload Release Asset
         if: startsWith(github.ref, 'refs/tags/')

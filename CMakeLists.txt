@@ -3,13 +3,17 @@ project(samba)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
-option(ALL_STATIC "Static link libraries and libgcc" OFF)
+option(ALL_STATIC "Static link libraries and libgcc. Disable readline." OFF)
 if(ALL_STATIC)
   set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc")
 endif(ALL_STATIC)
 
-find_package(Ncurses REQUIRED)
-find_package(Readline REQUIRED)
+if(NOT ALL_STATIC)
+  find_package(Readline REQUIRED)
+  if(READLINE_FOUND)
+    add_definitions(-DHAVE_LIBREADLINE=1)
+  endif(READLINE_FOUND)
+endif(NOT ALL_STATIC)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -29,7 +33,6 @@ add_executable(samba
 )
 target_link_libraries(samba
   ${READLINE_LIBRARIES}
-  ${NCURSES_LIBRARIES}
 )
 
 install(TARGETS samba)

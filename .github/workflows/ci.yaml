@@ -53,3 +53,15 @@ jobs:
           cd build
           cmake ..
           make
+  build-shared-without-readline:
+    runs-on: ubuntu-latest
+    name: Build shared without readline
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make

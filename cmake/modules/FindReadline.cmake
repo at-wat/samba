@@ -13,7 +13,7 @@ if(READLINE_LIBRARIES_FOUND)
 endif(READLINE_LIBRARIES_FOUND)
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(READLINE
+find_package_handle_standard_args(Readline
 	DEFAULT_MSG READLINE_LIBRARIES
 	READLINE_INCLUDE_DIRS
 )

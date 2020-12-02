@@ -9,7 +9,7 @@ if(ALL_STATIC)
 endif(ALL_STATIC)
 
 if(NOT ALL_STATIC)
-  find_package(Readline REQUIRED)
+  find_package(Readline)
   if(READLINE_FOUND)
     add_definitions(-DHAVE_LIBREADLINE=1)
   endif(READLINE_FOUND)

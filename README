@@ -16,9 +16,8 @@ The contents of this directory are provided only for reference. There is no
 need to compile this application as it is already a part of samba.
 See README in the sambaflash subdirectory for detail.
 
-Requirements:
-	readline
-	ncurses (used by readline)
+Optional dependency:
+	readline: samba commandline supports history if readline is provided
 
 Notes:
 

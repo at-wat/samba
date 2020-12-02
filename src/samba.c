@@ -136,23 +136,23 @@ int main(int argc, char *argv[])
 	while (!can_exit) {
 		if (batch_mode) {
 			cmd = read_batch_line();
-    } else {
+		} else {
 #if HAVE_LIBREADLINE
 			cmd = readline(PROJECT "> ");
 #else
-      size_t len = 0;
-      cmd = NULL;
-      printf(PROJECT "> ");
-      size_t n = getline(&cmd, &len, stdin);
-      if (n == EOF) {
-        break;
-      }
-      while (n > 0 && (cmd[n - 1] == '\n' || cmd[n - 1] == '\r')) {
-        cmd[n - 1] = 0;
-        n--;
-      }
+			size_t len = 0;
+			cmd = NULL;
+			printf(PROJECT "> ");
+			size_t n = getline(&cmd, &len, stdin);
+			if (n == EOF) {
+				break;
+			}
+			while (n > 0 && (cmd[n - 1] == '\n' || cmd[n - 1] == '\r')) {
+				cmd[n - 1] = 0;
+				n--;
+			}
 #endif
-    }
+		}
 		retval = 0;
 		if (cmd) {
 			if (strlen(cmd) > 0) {

@@ -10,25 +10,19 @@ on:
     types: [created]
 
 jobs:
-  build:
+  build-static:
     runs-on: ubuntu-latest
-    name: Build
+    name: Build static
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install dependencies
-        run: |
-          sudo apt-get update -qq \
-          && sudo apt-get install --no-install-recommends -y \
-            libncurses5-dev \
-            libreadline-dev
       - name: Build
         run: |
-          mkdir -p build \
-          && cd build \
-          && cmake .. -DALL_STATIC=on \
-          && make \
-          && tar czfv samba.linux-x86_64.tar.gz samba
+          mkdir -p build
+          cd build
+          cmake .. -DALL_STATIC=on
+          make
+          tar czfv samba.linux-x86_64.tar.gz samba
       - name: Check static
         run: ldd build/samba 2>&1 | grep "not a dynamic executable"
 
@@ -42,3 +36,20 @@ jobs:
           asset_path: ./build/samba.linux-x86_64.tar.gz
           asset_name: samba.linux-x86_64.tar.gz
           asset_content_type: application/gzip
+  build-shared:
+    runs-on: ubuntu-latest
+    name: Build shared
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y \
+            libreadline-dev
+      - name: Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make

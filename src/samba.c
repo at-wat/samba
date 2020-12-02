@@ -24,8 +24,10 @@
 #include <string.h>
 #include <getopt.h>
 
+#ifdef HAVE_LIBREADLINE
 #include <readline/readline.h>
 #include <readline/history.h>
+#endif
 
 #include "defs.h"
 #include "cmdline.h"
@@ -132,10 +134,25 @@ int main(int argc, char *argv[])
 	printf("Type 'help' to view list of supported commands\n"
 			"or 'help <command>' to view command's help\n");
 	while (!can_exit) {
-		if (batch_mode)
+		if (batch_mode) {
 			cmd = read_batch_line();
-		else
+    } else {
+#if HAVE_LIBREADLINE
 			cmd = readline(PROJECT "> ");
+#else
+      size_t len = 0;
+      cmd = NULL;
+      printf(PROJECT "> ");
+      size_t n = getline(&cmd, &len, stdin);
+      if (n == EOF) {
+        break;
+      }
+      while (n > 0 && (cmd[n - 1] == '\n' || cmd[n - 1] == '\r')) {
+        cmd[n - 1] = 0;
+        n--;
+      }
+#endif
+    }
 		retval = 0;
 		if (cmd) {
 			if (strlen(cmd) > 0) {
@@ -143,7 +160,9 @@ int main(int argc, char *argv[])
 				if (batch_mode)
 					if (retval)
 						can_exit = 1;
+#if HAVE_LIBREADLINE
 				add_history(cmd);
+#endif
 			}
 			free(cmd);
 		} else {

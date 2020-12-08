@@ -35,4 +35,7 @@ target_link_libraries(samba
   ${READLINE_LIBRARIES}
 )
 
-install(TARGETS samba)
+install(
+  TARGETS samba
+  RUNTIME DESTINATION bin
+)

@@ -54,6 +54,7 @@ $(FLASH_IMAGE): $(FLASH_BIN) $(CONVERTOR)
 
 $(RESET_IMAGE): $(RESET_BIN) $(CONVERTOR)
 	./$(CONVERTOR) $(RESET_BIN) > $(RESET_IMAGE)
+	sed -s 's/sambaflash/sambareset/g' -i $(RESET_IMAGE)
 
 $(CONVERTOR): $(CONVERTOR).c
 	$(HOST_CC) -o $@ $<

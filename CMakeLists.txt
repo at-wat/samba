@@ -33,9 +33,11 @@ add_executable(samba
   src/sambaflash.c
   src/sambareset.c
 )
-target_link_libraries(samba
-  ${READLINE_LIBRARIES}
-)
+if(READLINE_FOUND)
+  target_link_libraries(samba
+    ${READLINE_LIBRARIES}
+  )
+endif(READLINE_FOUND)
 
 install(
   TARGETS samba

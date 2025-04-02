@@ -12,14 +12,14 @@ if(NOT ALL_STATIC)
   find_package(Readline)
   if(READLINE_FOUND)
     add_definitions(-DHAVE_LIBREADLINE=1)
-  else(READLINE_FOUND)
-    set(READLINE_INCLUDE_DIRS "")
+    include_directories(
+      ${READLINE_INCLUDE_DIRS}
+    )
   endif(READLINE_FOUND)
 endif(NOT ALL_STATIC)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src
-  ${READLINE_INCLUDE_DIRS}
 )
 
 add_executable(samba

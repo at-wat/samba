@@ -12,12 +12,14 @@ if(NOT ALL_STATIC)
   find_package(Readline)
   if(READLINE_FOUND)
     add_definitions(-DHAVE_LIBREADLINE=1)
+    include_directories(
+      ${READLINE_INCLUDE_DIRS}
+    )
   endif(READLINE_FOUND)
 endif(NOT ALL_STATIC)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src
-  ${READLINE_INCLUDE_DIRS}
 )
 
 add_executable(samba
@@ -31,9 +33,11 @@ add_executable(samba
   src/sambaflash.c
   src/sambareset.c
 )
-target_link_libraries(samba
-  ${READLINE_LIBRARIES}
-)
+if(READLINE_FOUND)
+  target_link_libraries(samba
+    ${READLINE_LIBRARIES}
+  )
+endif(READLINE_FOUND)
 
 install(
   TARGETS samba

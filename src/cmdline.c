@@ -358,7 +358,7 @@ int process_cmdline(const char *command)
 		case CMD_CONNECT:
 			opened = comm_opened();
 			VERBOSE(1, "Connecting to microcontroller...\n");
-			retval = ucconnect(addr, data);
+			retval = ucconnect();
 			if (!opened)
 				comm_close();
 			printf("%sCONNECTED\n", retval ? "" : "NOT ");
